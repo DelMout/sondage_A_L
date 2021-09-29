@@ -13,6 +13,7 @@
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #b0c9e2;
+	background-color: black;
 }
 
 #nav {

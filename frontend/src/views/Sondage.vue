@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<div id="sond">
-			<h1>Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
+			<h1 class="display-2">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
 
 			<p id="sstitre">Sondage ouvert jusqu'au 15/10/2021.</p>
 
-			<h2>Soirée Jeux</h2>
+			<h2 class="display-3">Soirée Jeux</h2>
 			<p>L'Amicale Laïque souhaite mettre en place des soirées Jeux.</p>
 			<p>
 				<b>Principe : </b>Se réunir lors d'une soirée pour participer à des jeux.
@@ -25,23 +25,56 @@
 				Baugé-en-Anjou pour les faire découvrir lors de ces soirées.
 			</p>
 
-			<h2>Le sondage</h2>
+			<h2 class="display-3">Le sondage</h2>
 
 			<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
-			<p>"input"</p>
+			<div class="case fill"><va-input type="text" v-model="pseudo"></va-input></div>
 
 			<h4>Seriez-vous interessé par une soirée Jeux ?</h4>
 			<!-- 1 seule réponse -->
-			<p>oui / non / peut-être</p>
+			<div class="case">
+				<va-button-toggle
+					flat
+					:rounded="false"
+					color="#b0c9e2"
+					toggle-color="#fff"
+					active-button-text-color="#000"
+					v-model="interet"
+					:options="[
+						{ label: 'Oui', value: 'oui' },
+						{ label: 'Non', value: 'non' },
+						{ label: 'Peut-être', value: 'maybe' },
+					]"
+				/>
+			</div>
 
 			<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
 			<!-- 1 seule réponse -->
-			<p>1 fois/semaine - 1 fois/mois - 1 fois/trimestre - 1 fois/an</p>
+			<div class="case">
+				<va-button-toggle
+					flat
+					:rounded="false"
+					color="#b0c9e2"
+					toggle-color="#fff"
+					active-button-text-color="#000"
+					v-model="frequence"
+					:options="[
+						{ label: '1 fois / semaine', value: 'semaine' },
+						{ label: '1 fois / mois', value: 'mois' },
+						{ label: '1 fois / trimestre', value: 'trimestre' },
+						{ label: '1 fois / an', value: 'an' },
+					]"
+				/>
+			</div>
 
 			<h4>Quel jour seriez-vous disponible pour cette soirée ?</h4>
 			<i>Plusieurs réponses possibles</i>
-			<!-- plusieurs réponses possibles -->
-			<p>Lundi / Mardi / Mercredi / Samedi</p>
+			<div class="case">
+				<va-option-list
+					:options="['Lundi', 'Mardi', 'Mercredi', 'Samedi']"
+					v-model="jour"
+				/>
+			</div>
 
 			<h4>A partir de quelle heure seriez-vous disponible ?</h4>
 			<i>Plusieurs réponses possibles</i>
@@ -70,25 +103,43 @@
 			<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
 			<p>"input"</p>
 		</div>
-		<div>
-			<NButton>Valider mes réponses</NButton>
+		<div id="validation">
+			<va-button @click="save">Valider mes réponses</va-button>
 		</div>
-		<div><p>Merci d'avoir répondu à ce sondage. Vos réponses sont enregistrées.</p></div>
+		<div>
+			<p>{{ msg }}</p>
+		</div>
 	</div>
 </template>
 <script>
-import { defineComponent } from "vue";
-import NButton from "naive-ui";
+import { VaButton, VaInput } from "vuestic-ui";
 
-export default defineComponent({
+export default {
 	name: "Sondage",
 	data() {
-		return {};
+		return {
+			msg: "",
+			interet: "oui",
+			frequence: "semaine",
+			jour: "",
+		};
 	},
 	components: {
-		NButton,
+		VaButton,
+		VaInput,
 	},
-});
+	methods: {
+		save: function() {
+			this.msg =
+				"Merci " +
+				this.pseudo +
+				this.interet +
+				this.frequence +
+				this.jour +
+				". Vos données sont enregistrées.";
+		},
+	},
+};
 </script>
 <style scoped>
 #sond {
@@ -98,11 +149,23 @@ export default defineComponent({
 h1,
 #sstitre {
 	text-align: center;
+	color: #b0c9e2;
+}
+h2 {
+	color: #b0c9e2;
+	margin-top: 2rem;
 }
 h4 {
 	margin-top: 2rem;
 }
-NButton {
-	background-color: blueviolet;
+#validation {
+	text-align: left;
+	margin-top: 2rem;
+}
+.case {
+	margin-top: 0.5rem;
+}
+.fill {
+	width: 20rem;
 }
 </style>
