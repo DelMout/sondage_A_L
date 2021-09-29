@@ -77,31 +77,80 @@
 			</div>
 
 			<h4>A partir de quelle heure seriez-vous disponible ?</h4>
-			<i>Plusieurs réponses possibles</i>
-			<!-- plusieurs réponses possibles -->
-			<p>20h / 20h30</p>
+			<div class="case">
+				<va-button-toggle
+					flat
+					:rounded="false"
+					color="#b0c9e2"
+					toggle-color="#fff"
+					active-button-text-color="#000"
+					v-model="heure"
+					:options="[
+						{ label: '20h', value: 0 },
+						{ label: '20h30', value: 1 },
+					]"
+				/>
+			</div>
 
 			<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
-			<!-- 1 seule réponse -->
-			<p>1 / 2 / 3 / 4 / +</p>
+			<div class="case">
+				<va-button-toggle
+					flat
+					:rounded="false"
+					color="#b0c9e2"
+					toggle-color="#fff"
+					active-button-text-color="#000"
+					v-model="participants"
+					:options="[
+						{ label: 1, value: 1 },
+						{ label: 2, value: 2 },
+						{ label: 3, value: 3 },
+						{ label: 4, value: 4 },
+						{ label: 'plus', value: 10 },
+					]"
+				/>
+			</div>
 
 			<h4>A quels jeux voudriez-vous participer ?</h4>
 			<i>Plusieurs réponses possibles</i>
-			<!-- plusieurs réponses possibles -->
-			<p>
-				Tarot / Belote / Autres jeux de cartes / Scrabble / Jeux de société
-			</p>
+			<div class="case">
+				<va-option-list
+					:options="[
+						'Tarot',
+						'Belote',
+						'Autres jeux de cartes',
+						'Scrabble',
+						'Jeux de société',
+					]"
+					v-model="jeux"
+				/>
+			</div>
 
 			<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
-			<p>
-				oui / non
-			</p>
+			<div class="case">
+				<va-button-toggle
+					flat
+					:rounded="false"
+					color="#b0c9e2"
+					toggle-color="#fff"
+					active-button-text-color="#000"
+					v-model="nouveau"
+					:options="[
+						{ label: 'Oui', value: 'oui' },
+						{ label: 'Non', value: 'non' },
+					]"
+				/>
+			</div>
 
 			<h4>Avez-vous des suggestions de jeux ?</h4>
-			<p>"input"</p>
+			<div class="case big">
+				<va-input type="textarea" v-model="suggestions" />
+			</div>
 
 			<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
-			<p>"input"</p>
+			<div class="case big">
+				<va-input type="textarea" v-model="commentaires" />
+			</div>
 		</div>
 		<div id="validation">
 			<va-button @click="save">Valider mes réponses</va-button>
@@ -122,6 +171,11 @@ export default {
 			interet: "oui",
 			frequence: "semaine",
 			jour: "",
+			heure: 0,
+			participants: 1,
+			jeux: "",
+			nouveau: "oui",
+			suggestions: "",
 		};
 	},
 	components: {
@@ -167,5 +221,8 @@ h4 {
 }
 .fill {
 	width: 20rem;
+}
+.big {
+	width: 40rem;
 }
 </style>
