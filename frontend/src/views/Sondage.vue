@@ -1,9 +1,19 @@
 <template>
 	<div>
 		<div id="sond">
-			<h1 class="display-2">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
+			<div class="row">
+				<div class="des flex offset--md1 md2">
+					<img id="" alt="des rouge animés" src="../assets/dices.gif" />
+				</div>
+				<div class="sondage flex md5">
+					<h1 class="display-2">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
 
-			<p id="sstitre">Sondage ouvert jusqu'au 15/10/2021.</p>
+					<p id="sstitre">Sondage ouvert jusqu'au 15/10/2021.</p>
+				</div>
+				<div class="des flex offset--md1 md2">
+					<img id="pli" alt="suite plis animé" src="../assets/suitedeplie.gif" />
+				</div>
+			</div>
 
 			<h2 class="display-3">Soirée Jeux</h2>
 			<p>L'Amicale Laïque souhaite mettre en place des soirées Jeux.</p>
@@ -224,5 +234,15 @@ h4 {
 }
 .big {
 	width: 40rem;
+}
+.des {
+	margin: 0;
+}
+.sondage {
+	margin-top: 6rem;
+}
+#pli {
+	margin-top: 5rem;
+	width: 65%;
 }
 </style>
