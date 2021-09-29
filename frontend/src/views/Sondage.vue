@@ -71,18 +71,24 @@
 			<p>"input"</p>
 		</div>
 		<div>
-			<p>Valider mes réponses</p>
+			<NButton>Valider mes réponses</NButton>
 		</div>
 		<div><p>Merci d'avoir répondu à ce sondage. Vos réponses sont enregistrées.</p></div>
 	</div>
 </template>
 <script>
-export default {
+import { defineComponent } from "vue";
+import NButton from "naive-ui";
+
+export default defineComponent({
 	name: "Sondage",
 	data() {
 		return {};
 	},
-};
+	components: {
+		NButton,
+	},
+});
 </script>
 <style scoped>
 #sond {
@@ -95,5 +101,8 @@ h1,
 }
 h4 {
 	margin-top: 2rem;
+}
+NButton {
+	background-color: blueviolet;
 }
 </style>

@@ -1,29 +1,10 @@
 <template>
-	<div class="blackTheme">
-		<div>
-			<div>
-				<Sondage />
-			</div>
-		</div>
-		<!-- <img alt="Vue logo" src="./assets/logo.png" />
-		<HelloWorld msg="Welcome to Your Vue.js App" /> -->
+	<div id="nav">
+		<!-- <router-link to="/">Home</router-link> |
+		<router-link to="/sondage_jeux">Sondage Soirée Jeux</router-link> -->
 	</div>
+	<router-view />
 </template>
-
-<script>
-import Sondage from "./components/Sondage.vue";
-// import HelloWorld from "./components/HelloWorld.vue";
-
-export default {
-	name: "App",
-	components: {
-		Sondage,
-	},
-	data() {
-		return {};
-	},
-};
-</script>
 
 <style>
 #app {
@@ -31,16 +12,19 @@ export default {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: white;
-	/* margin-top: 60px; */
+	color: #b0c9e2;
 }
 
-.blackTheme {
-	color: white;
-	background-color: black;
-	padding: 0;
-	margin: 0;
-	height: 100vh;
-	/* width: 100%; */
+#nav {
+	/* padding: 30px; */
+}
+
+#nav a {
+	font-weight: bold;
+	color: #4d6781;
+}
+
+#nav a.router-link-exact-active {
+	color: #42b983;
 }
 </style>
