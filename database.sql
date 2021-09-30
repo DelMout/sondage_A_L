@@ -1,0 +1,21 @@
+
+CREATE DATABASE amicale_laique CHARACTER SET 'utf8mb4';
+USE amicale_laique;
+
+CREATE TABLE sondage_jeux
+(
+id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,    
+pseudo VARCHAR(255) NOT NULL,
+interet VARCHAR(255) NOT NULL,
+frequence VARCHAR(255) NOT NULL,
+jour VARCHAR(255) NOT NULL,
+heure TINYINT,
+particpants TINYINT,
+jeux VARCHAR(255),
+nouveau VARCHAR(255) NOT NULL,
+suggestions VARCHAR(255),
+commentaires VARCHAR(255),
+date DATE NOT NULL
+)
+ENGINE=INNODB;
+
