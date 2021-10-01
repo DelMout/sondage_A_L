@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="sondage">
 		<div id="sond">
 			<div class="row">
 				<div class="des flex offset--md1 md2">
@@ -35,149 +35,153 @@
 				Baugé-en-Anjou pour les faire découvrir lors de ces soirées.
 			</p>
 
-			<h2 class="display-3">Le sondage</h2>
+			<div v-if="display">
+				<h2 class="display-3">Le sondage</h2>
+				<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
+				<div class="case fill"><va-input type="text" v-model="pseudo"></va-input></div>
 
-			<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
-			<div class="case fill"><va-input type="text" v-model="pseudo"></va-input></div>
+				<h4>Seriez-vous interessé par une soirée Jeux ?</h4>
+				<!-- 1 seule réponse -->
+				<div class="case">
+					<va-button-toggle
+						flat
+						:rounded="false"
+						color="#b0c9e2"
+						toggle-color="#fff"
+						active-button-text-color="#000"
+						v-model="interet"
+						:options="[
+							{ label: 'Oui', value: 'oui' },
+							{ label: 'Non', value: 'non' },
+							{ label: 'Peut-être', value: 'maybe' },
+						]"
+					/>
+				</div>
 
-			<h4>Seriez-vous interessé par une soirée Jeux ?</h4>
-			<!-- 1 seule réponse -->
-			<div class="case">
-				<va-button-toggle
-					flat
-					:rounded="false"
-					color="#b0c9e2"
-					toggle-color="#fff"
-					active-button-text-color="#000"
-					v-model="interet"
-					:options="[
-						{ label: 'Oui', value: 'oui' },
-						{ label: 'Non', value: 'non' },
-						{ label: 'Peut-être', value: 'maybe' },
-					]"
-				/>
-			</div>
+				<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
+				<!-- 1 seule réponse -->
+				<div class="case">
+					<va-button-toggle
+						flat
+						:rounded="false"
+						color="#b0c9e2"
+						toggle-color="#fff"
+						active-button-text-color="#000"
+						v-model="frequence"
+						:options="[
+							{ label: '1 fois / semaine', value: 'semaine' },
+							{ label: '1 fois / mois', value: 'mois' },
+							{ label: '1 fois / trimestre', value: 'trimestre' },
+							{ label: '1 fois / an', value: 'an' },
+						]"
+					/>
+				</div>
 
-			<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
-			<!-- 1 seule réponse -->
-			<div class="case">
-				<va-button-toggle
-					flat
-					:rounded="false"
-					color="#b0c9e2"
-					toggle-color="#fff"
-					active-button-text-color="#000"
-					v-model="frequence"
-					:options="[
-						{ label: '1 fois / semaine', value: 'semaine' },
-						{ label: '1 fois / mois', value: 'mois' },
-						{ label: '1 fois / trimestre', value: 'trimestre' },
-						{ label: '1 fois / an', value: 'an' },
-					]"
-				/>
-			</div>
+				<h4>Quel jour seriez-vous disponible pour cette soirée ?</h4>
+				<i>Plusieurs réponses possibles</i>
+				<div class="case">
+					<va-option-list
+						:options="['Lundi', 'Mardi', 'Mercredi', 'Samedi']"
+						v-model="jour"
+					/>
+				</div>
 
-			<h4>Quel jour seriez-vous disponible pour cette soirée ?</h4>
-			<i>Plusieurs réponses possibles</i>
-			<div class="case">
-				<va-option-list
-					:options="['Lundi', 'Mardi', 'Mercredi', 'Samedi']"
-					v-model="jour"
-				/>
-			</div>
+				<h4>A partir de quelle heure seriez-vous disponible ?</h4>
+				<div class="case">
+					<va-button-toggle
+						flat
+						:rounded="false"
+						color="#b0c9e2"
+						toggle-color="#fff"
+						active-button-text-color="#000"
+						v-model="heure"
+						:options="[
+							{ label: '20h', value: 0 },
+							{ label: '20h30', value: 1 },
+						]"
+					/>
+				</div>
 
-			<h4>A partir de quelle heure seriez-vous disponible ?</h4>
-			<div class="case">
-				<va-button-toggle
-					flat
-					:rounded="false"
-					color="#b0c9e2"
-					toggle-color="#fff"
-					active-button-text-color="#000"
-					v-model="heure"
-					:options="[
-						{ label: '20h', value: 0 },
-						{ label: '20h30', value: 1 },
-					]"
-				/>
-			</div>
+				<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
+				<div class="case">
+					<va-button-toggle
+						flat
+						:rounded="false"
+						color="#b0c9e2"
+						toggle-color="#fff"
+						active-button-text-color="#000"
+						v-model="participants"
+						:options="[
+							{ label: 1, value: 1 },
+							{ label: 2, value: 2 },
+							{ label: 3, value: 3 },
+							{ label: 4, value: 4 },
+							{ label: 'plus', value: 10 },
+						]"
+					/>
+				</div>
 
-			<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
-			<div class="case">
-				<va-button-toggle
-					flat
-					:rounded="false"
-					color="#b0c9e2"
-					toggle-color="#fff"
-					active-button-text-color="#000"
-					v-model="participants"
-					:options="[
-						{ label: 1, value: 1 },
-						{ label: 2, value: 2 },
-						{ label: 3, value: 3 },
-						{ label: 4, value: 4 },
-						{ label: 'plus', value: 10 },
-					]"
-				/>
-			</div>
+				<h4>A quels jeux voudriez-vous participer ?</h4>
+				<i>Plusieurs réponses possibles</i>
+				<div class="case">
+					<va-option-list
+						:options="[
+							'Tarot',
+							'Belote',
+							'Autres jeux de cartes',
+							'Scrabble',
+							'Jeux de société',
+						]"
+						v-model="jeux"
+					/>
+				</div>
 
-			<h4>A quels jeux voudriez-vous participer ?</h4>
-			<i>Plusieurs réponses possibles</i>
-			<div class="case">
-				<va-option-list
-					:options="[
-						'Tarot',
-						'Belote',
-						'Autres jeux de cartes',
-						'Scrabble',
-						'Jeux de société',
-					]"
-					v-model="jeux"
-				/>
-			</div>
+				<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
+				<div class="case">
+					<va-button-toggle
+						flat
+						:rounded="false"
+						color="#b0c9e2"
+						toggle-color="#fff"
+						active-button-text-color="#000"
+						v-model="nouveau"
+						:options="[
+							{ label: 'Oui', value: 'oui' },
+							{ label: 'Non', value: 'non' },
+						]"
+					/>
+				</div>
 
-			<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
-			<div class="case">
-				<va-button-toggle
-					flat
-					:rounded="false"
-					color="#b0c9e2"
-					toggle-color="#fff"
-					active-button-text-color="#000"
-					v-model="nouveau"
-					:options="[
-						{ label: 'Oui', value: 'oui' },
-						{ label: 'Non', value: 'non' },
-					]"
-				/>
-			</div>
+				<h4>Avez-vous des suggestions de jeux ?</h4>
+				<div class="case big">
+					<va-input type="textarea" v-model="suggestions" />
+				</div>
 
-			<h4>Avez-vous des suggestions de jeux ?</h4>
-			<div class="case big">
-				<va-input type="textarea" v-model="suggestions" />
-			</div>
-
-			<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
-			<div class="case big">
-				<va-input type="textarea" v-model="commentaires" />
+				<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
+				<div class="case big">
+					<va-input type="textarea" v-model="commentaires" />
+				</div>
+				<div id="validation">
+					<va-button @click="save">Valider mes réponses</va-button>
+				</div>
 			</div>
 		</div>
-		<div id="validation">
-			<va-button @click="save">Valider mes réponses</va-button>
-		</div>
+
 		<div>
-			<p>{{ msg }}</p>
+			<p class="display-5">{{ msg }}</p>
 		</div>
 	</div>
 </template>
 <script>
 import { VaButton, VaInput } from "vuestic-ui";
+import axios from "axios";
 
 export default {
 	name: "Sondage",
 	data() {
 		return {
 			msg: "",
+			pseudo: "",
 			interet: "oui",
 			frequence: "semaine",
 			jour: "",
@@ -186,6 +190,8 @@ export default {
 			jeux: "",
 			nouveau: "oui",
 			suggestions: "",
+			commentaires: "",
+			display: true,
 		};
 	},
 	components: {
@@ -194,18 +200,75 @@ export default {
 	},
 	methods: {
 		save: function() {
-			this.msg =
-				"Merci " +
-				this.pseudo +
-				this.interet +
-				this.frequence +
-				this.jour +
-				". Vos données sont enregistrées.";
+			const formData = new FormData();
+			formData.append("pseudo", this.$data.pseudo);
+			formData.append("interet", this.$data.interet);
+			formData.append("frequence", this.$data.frequence);
+			formData.append("jour", this.$data.jour);
+			formData.append("heure", this.$data.heure);
+			formData.append("participants", this.$data.participants);
+			formData.append("jeux", this.$data.jeux);
+			formData.append("nouveau", this.$data.nouveau);
+			formData.append("suggestions", this.$data.suggestions);
+			formData.append("commentaires", this.$data.commentaires);
+			axios
+				.post(
+					"http://localhost:3001/api/sondage/savesondage",
+					formData
+					// {
+					// pseudo: this.pseudo,
+					// interet: this.interet,
+					// frequence: this.frequence,
+					// jour: this.jour,
+					// heure: this.heure,
+					// participants: this.participants,
+					// jeux: this.jeux,
+					// nouveau: this.nouveau,
+					// suggestions: this.suggestions,
+					// commentaires: this.commentaires,
+					// }
+				)
+				.then(() => {
+					this.display = false;
+					this.msg =
+						"Merci " +
+						this.pseudo +
+						this.interet +
+						this.frequence +
+						this.jour +
+						". Vos données sont enregistrées.";
+				})
+				.catch((err) => {
+					this.msg =
+						this.pseudo +
+						" " +
+						this.interet +
+						" " +
+						this.frequence +
+						" " +
+						this.jour +
+						" " +
+						this.heure +
+						" " +
+						this.participants +
+						" " +
+						this.jeux +
+						" " +
+						this.nouveau +
+						" " +
+						this.suggestions +
+						" " +
+						this.commentaires +
+						err;
+				});
 		},
 	},
 };
 </script>
 <style scoped>
+#sondage {
+	height: 210vh;
+}
 #sond {
 	text-align: left;
 	margin-left: 1rem;

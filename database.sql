@@ -2,7 +2,7 @@
 CREATE DATABASE amicale_laique CHARACTER SET 'utf8mb4';
 USE amicale_laique;
 
-CREATE TABLE sondage_jeux
+CREATE TABLE sondage
 (
 id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,    
 pseudo VARCHAR(255) NOT NULL,
