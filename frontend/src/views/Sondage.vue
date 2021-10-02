@@ -8,183 +8,230 @@
 				<div class="sondage flex md5">
 					<h1 class="display-2">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
 
-					<p id="sstitre">Sondage ouvert jusqu'au 15/10/2021.</p>
+					<p id="sstitre">Sondage ouvert jusqu'au 24/10/2021.</p>
 				</div>
 				<div class="des flex offset--md1 md2">
 					<img id="pli" alt="suite plis animé" src="../assets/suitedeplie.gif" />
 				</div>
 			</div>
+			<!-- Soirée Jeux -->
+			<div class="row">
+				<div class="flex md7">
+					<h2 class="display-3">Soirée Jeux</h2>
+					<p>L'Amicale Laïque souhaite mettre en place des soirées Jeux.</p>
+					<p>
+						<b>Principe : </b>Se réunir lors d'une soirée pour participer à des jeux.
+						Possibilité de jeux différents selon le nombre de participants.
+					</p>
+					<p>
+						<b>Qui : </b>Ces soirées sont exclusivement ouvertes aux amicalistes. Des
+						invités (adultes) peuvent participer à ces soirées ponctuellement afin de
+						faire découvrir l'association.
+					</p>
+					<p><b>Où : </b>Dans une salle communale de Noyant-Villages (à définir).</p>
+					<p><b>Quand : </b>Fréquence et jour à préciser selon le sondage ci-dessous.</p>
+					<p>
+						<b>Comment : </b>Selon les affinités de chacun on décide au début de la
+						séance à quel(s) jeu(x) on va participer (1 jeu par table donc différents
+						jeux possibles au même moment). <br />Possibilité d'emprunter des nouveaux
+						jeux à l'association de jeux de Baugé-en-Anjou (Beaux Jeux en Anjou) pour
+						les faire découvrir lors de ces soirées.
+					</p>
+				</div>
+				<div class="flex offset--md1 md3">
+					<img id="boites" alt="plusieurs boites jeux" src="../assets/jeux.png" />
+				</div>
+			</div>
+			<!-- Sondage -->
+			<div class="row">
+				<div class="flex md-6">
+					<h2 class="display-3">Sondage</h2>
+					<div id="question">
+						<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
+						<div class="case fill">
+							<va-input type="text" v-model="pseudo"></va-input>
+						</div>
 
-			<h2 class="display-3">Soirée Jeux</h2>
-			<p>L'Amicale Laïque souhaite mettre en place des soirées Jeux.</p>
-			<p>
-				<b>Principe : </b>Se réunir lors d'une soirée pour participer à des jeux.
-				Possibilité de jeux différents selon le nombre de participants.
-			</p>
-			<p>
-				<b>Qui : </b>Ces soirées sont exclusivement ouvertes aux amicalistes. Des invités
-				(adultes) peuvent participer à ces soirées ponctuellement afin de faire découvrir
-				l'association.
-			</p>
-			<p><b>Où : </b>Dans une salle communale de Noyant-Villages (à définir).</p>
-			<p><b>Quand : </b>Fréquence et jour à préciser selon le sondage ci-dessous.</p>
-			<p>
-				<b>Comment : </b>Selon les affinités de chacun on décide au début de la séance à
-				quel(s) jeu(x) on va participer (1 jeu par table donc différents jeux possibles au
-				même moment). <br />Possibilité d'emprunter des nouveaux jeux à l'association de
-				jeux de Baugé-en-Anjou (Beaux Jeux en Anjou) pour les faire découvrir lors de ces
-				soirées.
-			</p>
+						<h4>Seriez-vous interessé par une soirée Jeux ?</h4>
+						<!-- 1 seule réponse -->
+						<div class="case">
+							<va-button-toggle
+								flat
+								:rounded="false"
+								color="#b0c9e2"
+								toggle-color="#fff"
+								active-button-text-color="#000"
+								v-model="interet"
+								:options="[
+									{ label: 'Oui', value: 'oui' },
+									{ label: 'Non', value: 'non' },
+									{ label: 'Peut-être', value: 'maybe' },
+								]"
+							/>
+						</div>
 
-			<div>
-				<h2 class="display-3">Sondage</h2>
-				<div id="question">
-					<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
-					<div class="case fill"><va-input type="text" v-model="pseudo"></va-input></div>
+						<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
+						<!-- 1 seule réponse -->
+						<div class="case">
+							<va-button-toggle
+								flat
+								:rounded="false"
+								color="#b0c9e2"
+								toggle-color="#fff"
+								active-button-text-color="#000"
+								v-model="frequence"
+								:options="[
+									{ label: '1 fois / semaine', value: 'semaine' },
+									{ label: '1 fois / mois', value: 'mois' },
+									{ label: '1 fois / trimestre', value: 'trimestre' },
+									{ label: '1 fois / an', value: 'an' },
+								]"
+							/>
+						</div>
 
-					<h4>Seriez-vous interessé par une soirée Jeux ?</h4>
-					<!-- 1 seule réponse -->
-					<div class="case">
-						<va-button-toggle
-							flat
-							:rounded="false"
-							color="#b0c9e2"
-							toggle-color="#fff"
-							active-button-text-color="#000"
-							v-model="interet"
-							:options="[
-								{ label: 'Oui', value: 'oui' },
-								{ label: 'Non', value: 'non' },
-								{ label: 'Peut-être', value: 'maybe' },
-							]"
-						/>
+						<h4>Quel jour seriez-vous disponible pour cette soirée ?</h4>
+						<i>Plusieurs réponses possibles</i>
+						<div class="case">
+							<va-option-list
+								:options="['Lundi', 'Mardi', 'Mercredi', 'Samedi']"
+								v-model="jour"
+								color="#FC7600"
+							/>
+						</div>
+
+						<h4>A partir de quelle heure seriez-vous disponible ?</h4>
+						<div class="case">
+							<va-button-toggle
+								flat
+								:rounded="false"
+								color="#b0c9e2"
+								toggle-color="#fff"
+								active-button-text-color="#000"
+								v-model="heure"
+								:options="[
+									{ label: '20h', value: 0 },
+									{ label: '20h30', value: 1 },
+								]"
+							/>
+						</div>
+
+						<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
+						<div class="case">
+							<va-button-toggle
+								flat
+								:rounded="false"
+								color="#b0c9e2"
+								toggle-color="#fff"
+								active-button-text-color="#000"
+								v-model="participants"
+								:options="[
+									{ label: 1, value: 1 },
+									{ label: 2, value: 2 },
+									{ label: 3, value: 3 },
+									{ label: 4, value: 4 },
+									{ label: 'plus', value: 10 },
+								]"
+							/>
+						</div>
+
+						<h4>A quels jeux voudriez-vous participer ?</h4>
+						<i>Plusieurs réponses possibles</i>
+						<div class="case">
+							<va-option-list
+								:options="[
+									'Tarot',
+									'Belote',
+									'Autres jeux de cartes',
+									'Scrabble',
+									'Jeux de société',
+								]"
+								v-model="jeux"
+								color="#FC7600"
+							/>
+						</div>
+
+						<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
+						<div class="case">
+							<va-button-toggle
+								flat
+								:rounded="false"
+								color="#b0c9e2"
+								toggle-color="#fff"
+								active-button-text-color="#000"
+								v-model="nouveau"
+								:options="[
+									{ label: 'Oui', value: 'oui' },
+									{ label: 'Non', value: 'non' },
+								]"
+							/>
+						</div>
+
+						<h4>Avez-vous des suggestions de jeux ?</h4>
+						<div class="case big">
+							<va-input type="textarea" maxlength="255" v-model="suggestions" />
+						</div>
+
+						<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
+						<div class="case big">
+							<va-input type="textarea" maxlength="255" v-model="commentaires" />
+						</div>
 					</div>
-
-					<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
-					<!-- 1 seule réponse -->
-					<div class="case">
-						<va-button-toggle
-							flat
-							:rounded="false"
-							color="#b0c9e2"
-							toggle-color="#fff"
-							active-button-text-color="#000"
-							v-model="frequence"
-							:options="[
-								{ label: '1 fois / semaine', value: 'semaine' },
-								{ label: '1 fois / mois', value: 'mois' },
-								{ label: '1 fois / trimestre', value: 'trimestre' },
-								{ label: '1 fois / an', value: 'an' },
-							]"
-						/>
+					<div id="validation">
+						<va-button color="#FC7600" id="bout" @click="save"
+							>Valider mes réponses</va-button
+						>
 					</div>
-
-					<h4>Quel jour seriez-vous disponible pour cette soirée ?</h4>
-					<i>Plusieurs réponses possibles</i>
-					<div class="case">
-						<va-option-list
-							:options="['Lundi', 'Mardi', 'Mercredi', 'Samedi']"
-							v-model="jour"
-							color="#FC7600"
-						/>
-					</div>
-
-					<h4>A partir de quelle heure seriez-vous disponible ?</h4>
-					<div class="case">
-						<va-button-toggle
-							flat
-							:rounded="false"
-							color="#b0c9e2"
-							toggle-color="#fff"
-							active-button-text-color="#000"
-							v-model="heure"
-							:options="[
-								{ label: '20h', value: 0 },
-								{ label: '20h30', value: 1 },
-							]"
-						/>
-					</div>
-
-					<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
-					<div class="case">
-						<va-button-toggle
-							flat
-							:rounded="false"
-							color="#b0c9e2"
-							toggle-color="#fff"
-							active-button-text-color="#000"
-							v-model="participants"
-							:options="[
-								{ label: 1, value: 1 },
-								{ label: 2, value: 2 },
-								{ label: 3, value: 3 },
-								{ label: 4, value: 4 },
-								{ label: 'plus', value: 10 },
-							]"
-						/>
-					</div>
-
-					<h4>A quels jeux voudriez-vous participer ?</h4>
-					<i>Plusieurs réponses possibles</i>
-					<div class="case">
-						<va-option-list
-							:options="[
-								'Tarot',
-								'Belote',
-								'Autres jeux de cartes',
-								'Scrabble',
-								'Jeux de société',
-							]"
-							v-model="jeux"
-							color="#FC7600"
-						/>
-					</div>
-
-					<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
-					<div class="case">
-						<va-button-toggle
-							flat
-							:rounded="false"
-							color="#b0c9e2"
-							toggle-color="#fff"
-							active-button-text-color="#000"
-							v-model="nouveau"
-							:options="[
-								{ label: 'Oui', value: 'oui' },
-								{ label: 'Non', value: 'non' },
-							]"
-						/>
-					</div>
-
-					<h4>Avez-vous des suggestions de jeux ?</h4>
-					<div class="case big">
-						<va-input type="textarea" maxlength="255" v-model="suggestions" />
-					</div>
-
-					<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
-					<div class="case big">
-						<va-input type="textarea" maxlength="255" v-model="commentaires" />
+					<div>
+						<va-modal v-if="info" v-model="save" hide-default-actions>
+							<template #header>
+								<h3>{{ title }}</h3>
+							</template>
+							<slot>
+								<div id="message">{{ msg }}</div>
+							</slot>
+							<template #footer>
+								<va-button @click="escape">
+									OK
+								</va-button>
+							</template>
+						</va-modal>
 					</div>
 				</div>
-				<div id="validation">
-					<va-button color="#FC7600" id="bout" @click="save"
-						>Valider mes réponses</va-button
-					>
-				</div>
-				<div>
-					<va-modal v-if="info" v-model="save" hide-default-actions>
-						<template #header>
-							<h3>{{ title }}</h3>
-						</template>
-						<slot>
-							<div id="message">{{ msg }}</div>
-						</slot>
-						<template #footer>
-							<va-button @click="escape">
-								OK
-							</va-button>
-						</template>
-					</va-modal>
+				<div class="flex md-6">
+					<div class="row">
+						<div>
+							<img id="tarot" alt="bouts tarot" src="../assets/tarotbouts.png" />
+						</div>
+						<div>
+							<img id="jeton" alt="chute de jetons" src="../assets/jetontombe.gif" />
+						</div>
+					</div>
+					<div class="row ">
+						<div>
+							<img
+								id="scrabble"
+								alt="pions de scrabble"
+								src="../assets/scrabble.png"
+							/>
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<img
+								class="row"
+								id="flush"
+								alt="suite cartes"
+								src="../assets/suitecartes.gif"
+							/>
+						</div>
+						<div>
+							<img
+								id="piles"
+								alt="piles boites de jeux"
+								src="../assets/pilesjeux.png"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -354,6 +401,36 @@ h4 {
 	margin-top: 5rem;
 	width: 65%;
 }
+#boites {
+	width: 85%;
+	margin-top: 4rem;
+}
+#tarot {
+	width: 80%;
+	margin-top: 5rem;
+	margin-left: 3rem;
+}
+#jeton {
+	width: 80%;
+	margin-left: 9rem;
+	margin-top: 7rem;
+}
+#scrabble {
+	width: 40%;
+	margin-left: 10rem;
+	margin-top: 0rem;
+}
+#piles {
+	width: 120%;
+	margin-left: 3rem;
+	margin-top: 10rem;
+}
+#flush {
+	width: 50%;
+	margin-left: 9rem;
+	margin-top: 5rem;
+}
+
 #message,
 h3 {
 	font-family: Arial, Helvetica, sans-serif;
