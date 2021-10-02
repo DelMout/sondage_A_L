@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
 			pseudo: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				validate: {
+					notEmpty: true,
+				},
 			},
 			interet: {
 				type: DataTypes.STRING,
@@ -19,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
 			jour: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				validate: {
+					notEmpty: true,
+				},
 			},
 			heure: {
 				type: DataTypes.TINYINT,
@@ -28,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			jeux: {
 				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notEmpty: true,
+				},
 			},
 			nouveau: {
 				type: DataTypes.STRING,

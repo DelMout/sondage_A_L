@@ -15,6 +15,7 @@ exports.getSondage = (req, res) => {
 exports.saveSondage = (req, res) => {
 	const newSondage = new sondage({
 		...req.body,
+		// date: Date(),
 	});
 	newSondage
 		.save()
