@@ -158,12 +158,12 @@
 
 					<h4>Avez-vous des suggestions de jeux ?</h4>
 					<div class="case big">
-						<va-input type="textarea" v-model="suggestions" />
+						<va-input type="textarea" maxlength="255" v-model="suggestions" />
 					</div>
 
 					<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
 					<div class="case big">
-						<va-input type="textarea" v-model="commentaires" />
+						<va-input type="textarea" maxlength="255" v-model="commentaires" />
 					</div>
 				</div>
 				<div id="validation">
