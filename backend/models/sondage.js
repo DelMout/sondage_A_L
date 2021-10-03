@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.TINYINT,
 			},
 			participants: {
-				type: DataTypes.TINYINT,
+				type: DataTypes.STRING,
 			},
 			jeux: {
 				type: DataTypes.STRING,

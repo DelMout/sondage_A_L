@@ -64,4 +64,11 @@ span:nth-child(4) {
 		transform: scale(1) rotateZ(-3deg);
 	}
 }
+@media only screen and (max-width: 768px) {
+	/*mobiles et tablettes*/
+
+	h1 {
+		font-size: 2.5rem;
+	}
+}
 </style>

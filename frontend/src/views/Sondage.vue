@@ -6,7 +6,7 @@
 					<img id="" alt="des rouge animés" src="../assets/dices.gif" />
 				</div>
 				<div class="sondage flex md5">
-					<h1 class="display-2">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
+					<h1 class="display-1">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
 
 					<p id="sstitre">Sondage ouvert jusqu'au 24/10/2021.</p>
 				</div>
@@ -44,7 +44,7 @@
 			</div>
 			<!-- Sondage -->
 			<div class="row">
-				<div class="flex md-6">
+				<div class="flex md-6 ">
 					<h2 class="display-3">Sondage</h2>
 					<div id="question">
 						<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
@@ -72,20 +72,17 @@
 
 						<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
 						<!-- 1 seule réponse -->
-						<div class="case">
-							<va-button-toggle
-								flat
-								:rounded="false"
-								color="#b0c9e2"
-								toggle-color="#fff"
-								active-button-text-color="#000"
+						<div class="case ">
+							<va-option-list
+								type="radio"
 								v-model="frequence"
 								:options="[
-									{ label: '1 fois / semaine', value: 'semaine' },
-									{ label: '1 fois / mois', value: 'mois' },
-									{ label: '1 fois / trimestre', value: 'trimestre' },
-									{ label: '1 fois / an', value: 'an' },
+									'1 fois / semaine',
+									'1 fois / mois',
+									'1 fois / trimestre',
+									'1 fois / an',
 								]"
+								color="#FC7600"
 							/>
 						</div>
 
@@ -116,21 +113,12 @@
 						</div>
 
 						<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
-						<div class="case">
-							<va-button-toggle
-								flat
-								:rounded="false"
-								color="#b0c9e2"
-								toggle-color="#fff"
-								active-button-text-color="#000"
+						<div class="case ">
+							<va-option-list
+								type="radio"
 								v-model="participants"
-								:options="[
-									{ label: 1, value: 1 },
-									{ label: 2, value: 2 },
-									{ label: 3, value: 3 },
-									{ label: 4, value: 4 },
-									{ label: 'plus', value: 10 },
-								]"
+								:options="['1', '2', '3', '4', 'plus']"
+								color="#FC7600"
 							/>
 						</div>
 
@@ -181,6 +169,10 @@
 							>Valider mes réponses</va-button
 						>
 					</div>
+					<div id="copyright">
+						<p><i>&copy; Site réalisé par Delphine Moutault</i></p>
+					</div>
+
 					<div>
 						<va-modal v-if="info" v-model="save" hide-default-actions>
 							<template #header>
@@ -197,7 +189,7 @@
 						</va-modal>
 					</div>
 				</div>
-				<div class="flex md-6">
+				<div id="images" class="flex md-6 ">
 					<div class="row">
 						<div>
 							<img id="tarot" alt="bouts tarot" src="../assets/tarotbouts.png" />
@@ -240,7 +232,6 @@
 <script>
 import { VaButton, VaInput } from "vuestic-ui";
 import axios from "axios";
-// import message from "./popup-message";
 
 export default {
 	name: "Sondage",
@@ -249,10 +240,10 @@ export default {
 			msg: "",
 			pseudo: "",
 			interet: "oui",
-			frequence: "semaine",
+			frequence: "1 fois / semaine",
 			jour: "",
 			heure: 0,
-			participants: 1,
+			participants: "1",
 			jeux: "",
 			nouveau: "oui",
 			suggestions: "",
@@ -346,23 +337,37 @@ export default {
 </script>
 <style scoped>
 #sondage {
-	height: 220vh;
+	height: 250vh;
 }
 #sond {
 	text-align: left;
 	margin-left: 1rem;
 }
 h1 {
-	line-height: 3.5rem;
-}
-h1,
-#sstitre {
 	text-align: center;
-	/* color: #b0c9e2; */
-	color: #fc7600;
+	line-height: 3.5rem;
+	color: transparent;
+	background-image: linear-gradient(to right, #f00, #ff0, #0ff, #0f0, #00f);
+	-webkit-background-clip: text;
+	animation: colore 20s linear infinite;
+	background-size: 1000%;
+}
+@keyframes colore {
+	0% {
+		background-position: 0% 100%;
+	}
+	50% {
+		background-position: 100% 100%;
+	}
+	100% {
+		background-position: 0% 100%;
+	}
 }
 #sstitre {
+	color: #d4e686;
 	margin-top: 1rem;
+	text-align: center;
+	/* color: #fc7600; */
 }
 h2 {
 	/* color: #b0c9e2; */
@@ -378,6 +383,7 @@ h4 {
 	text-align: left;
 	margin-top: 2rem;
 	margin-left: 3rem;
+	margin-bottom: 1rem;
 }
 #bout {
 	font-size: 1.3rem;
@@ -448,5 +454,24 @@ b {
 }
 #question {
 	margin-left: 3rem;
+}
+@media only screen and (max-width: 768px) {
+	/*mobiles et tablettes*/
+	#sondage {
+		height: 490vh;
+	}
+	img {
+		display: none;
+	}
+
+	#validation,
+	#question,
+	p {
+		margin-left: 0.3rem;
+		margin-right: 0.3rem;
+	}
+	.big {
+		width: 20rem;
+	}
 }
 </style>
