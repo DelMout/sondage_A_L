@@ -164,17 +164,27 @@
 							<va-input type="textarea" maxlength="255" v-model="commentaires" />
 						</div>
 					</div>
+					<div v-if="mobileinfo" id="mobilemessage">
+						<p>{{ title }}</p>
+						<p id="mobilemsg">{{ msg }}</p>
+						<div id="mobilebtn">
+							<va-button @click="escapeMobile">
+								OK
+							</va-button>
+						</div>
+					</div>
 					<div id="validation">
 						<va-button color="#FC7600" id="bout" @click="save"
 							>Valider mes réponses</va-button
 						>
 					</div>
+
 					<div id="copyright">
 						<p><i>&copy; Site réalisé par Delphine Moutault</i></p>
 					</div>
 
-					<div>
-						<va-modal v-if="info" v-model="save" hide-default-actions>
+					<div id="boxmessage">
+						<va-modal class="mr-2 mb-2" v-if="info" v-model="save" hide-default-actions>
 							<template #header>
 								<h3>{{ title }}</h3>
 							</template>
@@ -189,6 +199,7 @@
 						</va-modal>
 					</div>
 				</div>
+
 				<div id="images" class="flex md-6 ">
 					<div class="row">
 						<div>
@@ -256,6 +267,7 @@ export default {
 			fautes: "",
 			title: "",
 			valid: "",
+			mobileinfo: false,
 		};
 	},
 	components: {
@@ -292,7 +304,14 @@ export default {
 					commentaires: this.commentaires,
 				})
 				.then(() => {
-					this.info = true;
+					if (window.matchMedia("(min-width: 768px)").matches) {
+						this.info = true;
+						this.mobileinfo = false;
+					} else {
+						this.info = false;
+						this.mobileinfo = true;
+						setTimeout(window.location.reload(), 10000);
+					}
 					this.title = "";
 					this.msg =
 						"Merci " +
@@ -301,7 +320,13 @@ export default {
 					this.valid = true;
 				})
 				.catch((err) => {
-					this.info = true;
+					if (window.matchMedia("(min-width: 768px)").matches) {
+						this.info = true;
+						this.mobileinfo = false;
+					} else {
+						this.info = false;
+						this.mobileinfo = true;
+					}
 					this.fautes = "";
 					if (this.pseudo === "") {
 						this.fautes = "un nom ou un pseudo";
@@ -332,6 +357,13 @@ export default {
 			this.info = false;
 			if (this.valid) {
 				window.location.reload();
+			}
+		},
+		escapeMobile: function() {
+			this.mobileinfo = false;
+			if (this.valid) {
+				window.location.reload();
+				// setTimeout(window.location.reload(), 3000);
 			}
 		},
 	},
@@ -456,6 +488,22 @@ b {
 }
 #question {
 	margin-left: 3rem;
+}
+#boxmessage {
+	margin-left: 0;
+}
+#mobilemessage {
+	background-color: blanchedalmond;
+	color: black;
+	font-weight: 700;
+	margin-right: 3rem;
+	padding: 6px 6px 10px 6px;
+}
+#mobilemsg {
+	text-align: justify;
+}
+#mobilebtn {
+	text-align: right;
 }
 @media only screen and (max-width: 768px) {
 	/*mobiles et tablettes*/
