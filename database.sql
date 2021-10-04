@@ -1,6 +1,6 @@
 
-CREATE DATABASE amicale_laique CHARACTER SET 'utf8mb4';
-USE amicale_laique;
+-- CREATE DATABASE amicale_laique CHARACTER SET 'utf8mb4';
+-- USE amicale_laique;
 
 CREATE TABLE sondage
 (

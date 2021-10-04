@@ -277,7 +277,9 @@ export default {
 				this.jeuxChoice = this.jeuxChoice + " " + this.jeux[e];
 			}
 			axios
-				.post("http://localhost:3001/api/sondage/savesondage", {
+				// .post("https://api-amicale-laique-sondage.delmout.com/api/sondage/savesondage", {
+				.post(process.env.VUE_APP_API_SONDAGE + "api/sondage/savesondage", {
+					// .post("http://localhost:3001/api/sondage/savesondage", {
 					pseudo: this.pseudo,
 					interet: this.interet,
 					frequence: this.frequence,
