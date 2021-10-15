@@ -1,23 +1,23 @@
 <template>
 	<div id="sondage">
 		<div id="sond">
-			<div class="row">
-				<div class="des flex offset--md1 md2">
-					<img id="" alt="des rouge animés" src="../assets/dices.gif" />
+			<div class="grid ">
+				<div class="col-2 col-offset-1">
+					<img id="desrouge" alt="des rouge animés" src="../assets/dices.gif" />
 				</div>
-				<div class="sondage flex md5">
-					<h1 class="display-1">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
+				<div class="sondage col-6">
+					<h1 class="">Sondage Soirée Jeux<br />– Amicale Laïque –</h1>
 
 					<p id="sstitre">Sondage ouvert jusqu'au 24/10/2021.</p>
 				</div>
-				<div class="des flex offset--md1 md2">
+				<div class="des col-2">
 					<img id="pli" alt="suite plis animé" src="../assets/suitedeplie.gif" />
 				</div>
 			</div>
 			<!-- Soirée Jeux -->
-			<div class="row">
-				<div class="flex md7">
-					<h2 class="display-3">Soirée Jeux</h2>
+			<div class="grid">
+				<div class="col-12 md:col-6">
+					<h2 class="">Soirée Jeux</h2>
 					<p>L'Amicale Laïque souhaite mettre en place des soirées Jeux.</p>
 					<p>
 						<b>Principe : </b>Se réunir lors d'une soirée pour participer à des jeux.
@@ -38,152 +38,156 @@
 						les faire découvrir lors de ces soirées.
 					</p>
 				</div>
-				<div class="flex offset--md1 md3">
+				<div class=" col-offset-1 col-0 md:col-5">
 					<img id="boites" alt="plusieurs boites jeux" src="../assets/jeux.png" />
 				</div>
 			</div>
 			<!-- Sondage -->
-			<div class="row">
-				<div class="flex md-6 ">
-					<h2 class="display-3">Sondage</h2>
+			<div class="grid">
+				<div class="p-col-12 md:col-6">
+					<h2 class="">Sondage</h2>
 					<div id="question">
 						<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
 						<div class="case fill">
-							<va-input type="text" v-model="pseudo"></va-input>
+							<InputText :id="pseudoStyle" type="text" v-model="pseudo" />
 						</div>
 
-						<h4>Seriez-vous interessé par une soirée Jeux ?</h4>
+						<h4>Seriez-vous interessé(e) par une soirée Jeux ?</h4>
 						<!-- 1 seule réponse -->
 						<div class="case">
-							<va-button-toggle
-								flat
-								:rounded="false"
-								color="#b0c9e2"
-								toggle-color="#fff"
-								active-button-text-color="#000"
+							<Listbox
+								:id="interetStyle"
 								v-model="interet"
-								:options="[
-									{ label: 'Oui', value: 'oui' },
-									{ label: 'Non', value: 'non' },
-									{ label: 'Peut-être', value: 'maybe' },
-								]"
+								:options="optionsInteret"
+								optionLabel="name"
+								style="width:8rem"
 							/>
 						</div>
 
 						<h4>A quelle fréquence souhaitez-vous participer à cette soirée ?</h4>
 						<!-- 1 seule réponse -->
 						<div class="case ">
-							<va-option-list
-								type="radio"
+							<Listbox
+								:id="frequenceStyle"
 								v-model="frequence"
-								:options="[
-									'1 fois / semaine',
-									'1 fois / mois',
-									'1 fois / trimestre',
-									'1 fois / an',
-								]"
-								color="#FC7600"
+								:options="optionsFrequence"
+								optionLabel="name"
+								style="width:11rem"
 							/>
 						</div>
 
 						<h4>Quel jour seriez-vous disponible pour cette soirée ?</h4>
-						<i>Plusieurs réponses possibles</i>
+						<i>* Plusieurs réponses possibles</i>
 						<div class="case">
-							<va-option-list
-								:options="['Lundi', 'Mardi', 'Mercredi', 'Samedi']"
+							<Listbox
+								:id="jourStyle"
 								v-model="jour"
-								color="#FC7600"
+								:options="optionsJour"
+								optionLabel="name"
+								style="width:11rem"
+								:multiple="true"
 							/>
 						</div>
 
 						<h4>A partir de quelle heure seriez-vous disponible ?</h4>
 						<div class="case">
-							<va-button-toggle
-								flat
-								:rounded="false"
-								color="#b0c9e2"
-								toggle-color="#fff"
-								active-button-text-color="#000"
+							<Listbox
+								:id="heureStyle"
 								v-model="heure"
-								:options="[
-									{ label: '20h', value: 0 },
-									{ label: '20h30', value: 1 },
-								]"
+								:options="optionsHeure"
+								optionLabel="name"
+								style="width:8rem"
 							/>
 						</div>
 
 						<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
 						<div class="case ">
-							<va-option-list
-								type="radio"
+							<Listbox
+								:id="participantsStyle"
 								v-model="participants"
-								:options="['1', '2', '3', '4', 'plus']"
-								color="#FC7600"
+								:options="optionsParticipants"
+								optionLabel="name"
+								style="width:8rem"
 							/>
 						</div>
 
 						<h4>A quels jeux voudriez-vous participer ?</h4>
-						<i>Plusieurs réponses possibles</i>
+						<i>* Plusieurs réponses possibles</i>
 						<div class="case">
-							<va-option-list
-								:options="[
-									'Tarot',
-									'Belote',
-									'Autres jeux de cartes',
-									'Scrabble',
-									'Jeux de société',
-								]"
+							<Listbox
+								:id="jeuxStyle"
 								v-model="jeux"
-								color="#FC7600"
+								:options="optionsJeux"
+								optionLabel="name"
+								style="width:15rem"
+								:multiple="true"
 							/>
 						</div>
 
 						<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
 						<div class="case">
-							<va-button-toggle
-								flat
-								:rounded="false"
-								color="#b0c9e2"
-								toggle-color="#fff"
-								active-button-text-color="#000"
+							<Listbox
+								:id="nouveauStyle"
 								v-model="nouveau"
-								:options="[
-									{ label: 'Oui', value: 'oui' },
-									{ label: 'Non', value: 'non' },
-								]"
+								:options="optionsNouveau"
+								optionLabel="name"
+								style="width:8rem"
 							/>
 						</div>
 
 						<h4>Avez-vous des suggestions de jeux ?</h4>
 						<div class="case big">
-							<va-input type="textarea" maxlength="255" v-model="suggestions" />
+							<Textarea v-model="suggestions" rows="5" cols="30" maxlength="255" />
 						</div>
 
 						<h4>Si vous avez des suggestions ou commentaires, c'est ici :</h4>
 						<div class="case big">
-							<va-input type="textarea" maxlength="255" v-model="commentaires" />
+							<Textarea v-model="commentaires" rows="5" cols="30" maxlength="255" />
 						</div>
 					</div>
-					<div v-if="mobileinfo" id="mobilemessage">
+					<!-- <div v-if="mobileinfo" id="mobilemessage">
 						<p>{{ title }}</p>
 						<p id="mobilemsg">{{ msg }}</p>
 						<div id="mobilebtn">
-							<va-button @click="escapeMobile">
+							<button @click="escapeMobile">
 								OK
-							</va-button>
+							</button>
 						</div>
-					</div>
+					</div> -->
 					<div id="validation">
-						<va-button color="#FC7600" id="bout" @click="save"
-							>Valider mes réponses</va-button
+						<Button
+							id="bout"
+							label="Valider mes réponses"
+							@click="save"
+							class="p-button-warning p-button-lg"
+						/>
+					</div>
+					<div>
+						<Dialog
+							:header="title"
+							v-model:visible="displayResponsive"
+							:breakpoints="{ '960px': '75vw' }"
+							:style="{ width: '50vw' }"
 						>
+							<p>
+								{{ msg }}
+							</p>
+							<template #footer>
+								<Button
+									label="OK"
+									icon="pi pi-check"
+									@click="closeResponsive"
+									autofocus
+								/>
+							</template>
+						</Dialog>
 					</div>
 
 					<div id="copyright">
 						<p><i>&copy; Site réalisé par Delphine Moutault</i></p>
 					</div>
 
-					<div id="boxmessage">
+					<!-- <div id="boxmessage">
 						<va-modal class="mr-2 mb-2" v-if="info" v-model="save" hide-default-actions>
 							<template #header>
 								<h3>{{ title }}</h3>
@@ -192,42 +196,42 @@
 								<div id="message">{{ msg }}</div>
 							</slot>
 							<template #footer>
-								<va-button @click="escape">
+								<button @click="escape">
 									OK
-								</va-button>
+								</button>
 							</template>
 						</va-modal>
-					</div>
+					</div> -->
 				</div>
 
-				<div id="images" class="flex md-6 ">
-					<div class="row">
-						<div>
+				<div id="images" class="col-0 md:col-6">
+					<div class="grid">
+						<div class="col-4">
 							<img id="tarot" alt="bouts tarot" src="../assets/tarotbouts.png" />
 						</div>
-						<div>
+						<div class="col-8">
 							<img id="jeton" alt="chute de jetons" src="../assets/jetontombe.gif" />
 						</div>
 					</div>
-					<div class="row ">
-						<div>
+					<div class="grid ">
+						<div class="col-4 col-offset-2">
 							<img
 								id="scrabble"
 								alt="pions de scrabble"
 								src="../assets/scrabble.png"
 							/>
 						</div>
-					</div>
-					<div class="row">
-						<div>
+						<div class="col-3 col-offset-1">
 							<img
-								class="row"
+								class=""
 								id="flush"
 								alt="suite cartes"
 								src="../assets/suitecartes.gif"
 							/>
 						</div>
-						<div>
+					</div>
+					<div class="grid">
+						<div class="col-5 col-offset-4">
 							<img
 								id="piles"
 								alt="piles boites de jeux"
@@ -241,7 +245,6 @@
 	</div>
 </template>
 <script>
-import { VaButton, VaInput } from "vuestic-ui";
 import axios from "axios";
 
 export default {
@@ -250,13 +253,13 @@ export default {
 		return {
 			msg: "",
 			pseudo: "",
-			interet: "oui",
-			frequence: "1 fois / semaine",
+			interet: "",
+			frequence: "",
 			jour: "",
-			heure: 0,
-			participants: "1",
+			heure: "",
+			participants: "",
 			jeux: "",
-			nouveau: "oui",
+			nouveau: "",
 			suggestions: "",
 			commentaires: "",
 			jourChoice: "",
@@ -268,51 +271,95 @@ export default {
 			title: "",
 			valid: "",
 			mobileinfo: false,
+			displayResponsive: false,
+			optionsInteret: [
+				{ name: "Oui", code: "OUI" },
+				{ name: "Non", code: "NON" },
+				{ name: "Peut-être", code: "MAYBE" },
+			],
+			optionsFrequence: [
+				{ name: "1 fois / semaine", code: "semaine" },
+				{ name: "1 fois / mois", code: "mois" },
+				{ name: "1 fois / trimestre", code: "trimestre" },
+				{ name: "1 fois / an", code: "an" },
+			],
+			optionsJour: [
+				{ name: "Lundi", code: "lundi" },
+				{ name: "Mardi", code: "mardi" },
+				{ name: "Mercredi", code: "mercredi" },
+				{ name: "Samedi", code: "samedi" },
+			],
+			optionsHeure: [
+				{ name: "20h", code: 0 },
+				{ name: "20h30", code: 1 },
+			],
+			optionsParticipants: [
+				{ name: "1", code: "1" },
+				{ name: "2", code: "2" },
+				{ name: "Plus", code: "plus" },
+			],
+			optionsJeux: [
+				{ name: "Tarot", code: "tarot" },
+				{ name: "Belote", code: "belote" },
+				{ name: "Autres jeux de cartes", code: "cartes" },
+				{ name: "Scrabble", code: "scrabble" },
+				{ name: "Jeux de société", code: "société" },
+			],
+			optionsNouveau: [
+				{ name: "Oui", code: "oui" },
+				{ name: "Non", code: "non" },
+			],
 		};
 	},
-	components: {
-		VaButton,
-		VaInput,
-	},
+	components: {},
 	methods: {
 		//* Save a line onf sondage in database
 		save: function() {
+			this.pseudoStyle = "";
+			this.interetStyle = "";
+			this.frequenceStyle = "";
+			this.jourStyle = "";
+			this.heureStyle = "";
+			this.participantsStyle = "";
+			this.jeuxStyle = "";
+			this.nouveauStyle = "";
 			this.valid = "";
 			// Detail of -jour-
 			this.jourChoice = "";
 			for (let j = 0; j < this.jour.length; j++) {
-				this.jourChoice = this.jourChoice + " " + this.jour[j];
+				this.jourChoice = this.jourChoice + " " + this.jour[j].code;
 			}
 			// Detail of -jeux-
 			this.jeuxChoice = "";
 			for (let e = 0; e < this.jeux.length; e++) {
-				this.jeuxChoice = this.jeuxChoice + " " + this.jeux[e];
+				this.jeuxChoice = this.jeuxChoice + " " + this.jeux[e].code;
 			}
 			axios
 				// .post("https://api-amicale-laique-sondage.delmout.com/api/sondage/savesondage", {
 				.post(process.env.VUE_APP_API_SONDAGE + "api/sondage/savesondage", {
 					// .post("http://localhost:3001/api/sondage/savesondage", {
 					pseudo: this.pseudo,
-					interet: this.interet,
-					frequence: this.frequence,
+					interet: this.interet.code,
+					frequence: this.frequence.code,
 					jour: this.jourChoice,
-					heure: this.heure,
-					participants: this.participants,
+					heure: this.heure.code,
+					participants: this.participants.code,
 					jeux: this.jeuxChoice,
-					nouveau: this.nouveau,
+					nouveau: this.nouveau.code,
 					suggestions: this.suggestions,
 					commentaires: this.commentaires,
 				})
 				.then(() => {
-					if (window.matchMedia("(min-width: 768px)").matches) {
-						this.info = true;
-						this.mobileinfo = false;
-					} else {
-						this.info = false;
-						this.mobileinfo = true;
-						setTimeout(window.location.reload(), 10000);
-					}
-					this.title = "";
+					// if (window.matchMedia("(min-width: 768px)").matches) {
+					// 	this.info = true;
+					// 	this.mobileinfo = false;
+					// } else {
+					// 	this.info = false;
+					// 	this.mobileinfo = true;
+					// 	setTimeout(window.location.reload(), 15000);
+					// }
+					this.displayResponsive = true;
+					this.title = "Merci de votre participation";
 					this.msg =
 						"Merci " +
 						this.pseudo +
@@ -320,47 +367,81 @@ export default {
 					this.valid = true;
 				})
 				.catch((err) => {
-					if (window.matchMedia("(min-width: 768px)").matches) {
-						this.info = true;
-						this.mobileinfo = false;
-					} else {
-						this.info = false;
-						this.mobileinfo = true;
-					}
-					this.fautes = "";
+					// if (window.matchMedia("(min-width: 768px)").matches) {
+					// 	this.info = true;
+					// 	this.mobileinfo = false;
+					// } else {
+					// 	this.info = false;
+					// 	this.mobileinfo = true;
+					// }
+
+					// this.fautes = "";
 					if (this.pseudo === "") {
-						this.fautes = "un nom ou un pseudo";
+						this.pseudoStyle = "alert";
 					}
-					if (this.jourChoice === "") {
-						if (this.pseudo === "") {
-							this.fautes = this.fautes + ", votre choix de jour";
-						} else {
-							this.fautes = this.fautes + "votre choix de jour";
-						}
+					if (this.interet === "") {
+						this.interetStyle = "alert";
 					}
-					if (this.jeuxChoice === "") {
-						if (this.pseudo === "" || this.jourChoice === "") {
-							this.fautes = this.fautes + " et vos choix de jeux";
-						} else {
-							this.fautes = this.fautes + "vos choix de jeux";
-						}
+					if (this.frequence === "") {
+						this.frequenceStyle = "alert";
 					}
+					if (this.jour === "") {
+						this.jourStyle = "alert";
+					}
+					if (this.heure === "") {
+						this.heureStyle = "alert";
+					}
+					if (this.participants === "") {
+						this.participantsStyle = "alert";
+					}
+					if (this.jeux === "") {
+						this.jeuxStyle = "alert";
+					}
+					if (this.nouveau === "") {
+						this.nouveauStyle = "alert";
+					}
+					// if (this.jourChoice === "") {
+					// 	if (this.pseudo === "") {
+					// 		this.fautes = this.fautes + ", votre choix de jour";
+					// 	} else {
+					// 		this.fautes = this.fautes + "votre choix de jour";
+					// 	}
+					// }
+					// if (this.jeuxChoice === "") {
+					// 	if (this.pseudo === "" || this.jourChoice === "") {
+					// 		this.fautes = this.fautes + " et vos choix de jeux";
+					// 	} else {
+					// 		this.fautes = this.fautes + "vos choix de jeux";
+					// 	}
+					// }
+					this.displayResponsive = true;
+
 					this.title = "Attention !";
-					this.msg = "Merci de renseigner " + this.fautes + ".";
+					this.msg = "Merci de renseigner les cellules en rouge.";
 					this.valid = false;
 
 					console.log(err);
+					console.log(this.pseudo);
+					console.log(this.interet.code);
+					console.log(this.frequence.code);
+					console.log(this.jourChoice);
+					console.log(this.heure.code);
+					console.log(this.participants.code);
+					console.log(this.nouveau.code);
+					console.log(this.jeuxChoice);
+					console.log(this.suggestions);
+					console.log(this.commentaires);
 				});
 		},
-		// No display anymore popup message
-		escape: function() {
-			this.info = false;
-			if (this.valid) {
-				window.location.reload();
-			}
-		},
-		escapeMobile: function() {
-			this.mobileinfo = false;
+		// // No display anymore popup message
+		// escape: function() {
+		// 	this.info = false;
+		// 	if (this.valid) {
+		// 		window.location.reload();
+		// 	}
+		// },
+		closeResponsive: function() {
+			this.displayResponsive = false;
 			if (this.valid) {
 				window.location.reload();
 				// setTimeout(window.location.reload(), 3000);
@@ -371,7 +452,7 @@ export default {
 </script>
 <style scoped>
 #sondage {
-	height: 250vh;
+	height: 500vh;
 }
 #sond {
 	text-align: left;
@@ -379,7 +460,8 @@ export default {
 }
 h1 {
 	text-align: center;
-	line-height: 3.5rem;
+	/* line-height: 3.5rem; */
+	font-weight: 800;
 	color: transparent;
 	background-image: linear-gradient(to right, #f00, #ff0, #0ff, #0f0, #00f);
 	-webkit-background-clip: text;
@@ -405,13 +487,19 @@ h1 {
 }
 h2 {
 	/* color: #b0c9e2; */
-	color: #fc7600;
+	/* color: #fc7600; */
+	color: #b073cf;
 	margin-top: 2rem;
 	margin-bottom: 1rem;
 	margin-left: 1rem;
+	font-weight: 800;
 }
 h4 {
 	margin-top: 2rem;
+	font-weight: 500;
+}
+#alert {
+	border: solid red;
 }
 #validation {
 	text-align: left;
@@ -421,6 +509,7 @@ h4 {
 }
 #bout {
 	font-size: 1.3rem;
+	font-weight: 600;
 }
 .case {
 	margin-top: 0.5rem;
@@ -431,44 +520,45 @@ h4 {
 .big {
 	width: 40rem;
 }
-.des {
+/* .des {
 	margin: 0;
-}
+} */
 .sondage {
-	margin-top: 6rem;
+	margin-top: 4rem;
 }
 #pli {
 	margin-top: 5rem;
 	width: 65%;
 }
 #boites {
-	width: 85%;
+	width: 65%;
+	margin: auto;
 	margin-top: 4rem;
 }
 #tarot {
-	width: 80%;
-	margin-top: 5rem;
-	margin-left: 3rem;
+	width: 100%;
+	/* margin-top: 5rem;
+	margin-left: 3rem; */
 }
 #jeton {
-	width: 80%;
-	margin-left: 9rem;
-	margin-top: 7rem;
+	width: 100%;
+	/* margin-left: 0rem; */
+	/* margin-top: 7rem; */
 }
 #scrabble {
-	width: 40%;
-	margin-left: 10rem;
-	margin-top: 0rem;
+	width: 100%;
+	/* margin-left: 10rem;
+	margin-top: 0rem; */
 }
 #piles {
-	width: 120%;
-	margin-left: 3rem;
-	margin-top: 10rem;
+	width: 100%;
+	/* margin-left: 3rem; */
+	margin-top: 3rem;
 }
 #flush {
-	width: 50%;
-	margin-left: 9rem;
-	margin-top: 5rem;
+	width: 90%;
+	/* margin-left: 9rem; */
+	margin-top: 7rem;
 }
 
 #message,
@@ -505,8 +595,38 @@ b {
 #mobilebtn {
 	text-align: right;
 }
-@media only screen and (max-width: 768px) {
-	/*mobiles et tablettes*/
+/* #images {
+	background-color: yellow;
+} */
+@media only screen and (max-width: 1700px) {
+	/*mobiles et tablettes et plus ! */
+	#sondage {
+		height: 490vh;
+	}
+	/* img {
+		display: none;
+	} */
+
+	#validation,
+	#question,
+	p {
+		margin-left: 0.3rem;
+		margin-right: 0.3rem;
+	}
+	.big {
+		width: 20rem;
+	}
+	#pli {
+		margin-top: 6rem;
+		width: 85%;
+	}
+	#desrouge {
+		width: 85%;
+		margin-top: 4rem;
+	}
+}
+@media only screen and (max-width: 780px) {
+	/*mobiles et tablettes  */
 	#sondage {
 		height: 490vh;
 	}
