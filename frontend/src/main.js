@@ -10,6 +10,7 @@ import SelectButton from "primevue/selectbutton";
 import Listbox from "primevue/listbox";
 import Textarea from "primevue/textarea";
 import Button from "primevue/button";
+import ProgressSpinner from "primevue/progressspinner";
 import "primeflex/primeflex.css"; // grid system
 import "primeicons/primeicons.css";
 import "primevue/resources/themes/bootstrap4-dark-purple/theme.css"; //theme color
@@ -25,4 +26,5 @@ createApp(App)
 	.component("Listbox", Listbox)
 	.component("Textarea", Textarea)
 	.component("Button", Button)
+	.component("ProgressSpinner", ProgressSpinner)
 	.mount("#app");

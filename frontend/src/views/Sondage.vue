@@ -49,13 +49,19 @@
 					<div id="question">
 						<h4>Votre prénom ou pseudo (si vous souhaitez garder l'anonymat) :</h4>
 						<div class="case fill">
-							<InputText :id="pseudoStyle" type="text" v-model="pseudo" />
+							<InputText
+								@click="pseudoClic"
+								:id="pseudoStyle"
+								type="text"
+								v-model="pseudo"
+							/>
 						</div>
 
 						<h4>Seriez-vous interessé(e) par une soirée Jeux ?</h4>
 						<!-- 1 seule réponse -->
 						<div class="case">
 							<Listbox
+								@click="interetClic"
 								:id="interetStyle"
 								v-model="interet"
 								:options="optionsInteret"
@@ -68,6 +74,7 @@
 						<!-- 1 seule réponse -->
 						<div class="case ">
 							<Listbox
+								@click="frequenceClic"
 								:id="frequenceStyle"
 								v-model="frequence"
 								:options="optionsFrequence"
@@ -80,6 +87,7 @@
 						<i>* Plusieurs réponses possibles</i>
 						<div class="case">
 							<Listbox
+								@click="jourClic"
 								:id="jourStyle"
 								v-model="jour"
 								:options="optionsJour"
@@ -92,6 +100,7 @@
 						<h4>A partir de quelle heure seriez-vous disponible ?</h4>
 						<div class="case">
 							<Listbox
+								@click="heureClic"
 								:id="heureStyle"
 								v-model="heure"
 								:options="optionsHeure"
@@ -103,6 +112,7 @@
 						<h4>A combien de personnes pensez-vous venir à ces soirées ?</h4>
 						<div class="case ">
 							<Listbox
+								@click="participantsClic"
 								:id="participantsStyle"
 								v-model="participants"
 								:options="optionsParticipants"
@@ -115,6 +125,7 @@
 						<i>* Plusieurs réponses possibles</i>
 						<div class="case">
 							<Listbox
+								@click="jeuxClic"
 								:id="jeuxStyle"
 								v-model="jeux"
 								:options="optionsJeux"
@@ -127,6 +138,7 @@
 						<h4>Êtes-vous intéressé par la découverte de nouveaux jeux ?</h4>
 						<div class="case">
 							<Listbox
+								@click="nouveauClic"
 								:id="nouveauStyle"
 								v-model="nouveau"
 								:options="optionsNouveau"
@@ -145,22 +157,16 @@
 							<Textarea v-model="commentaires" rows="5" cols="30" maxlength="255" />
 						</div>
 					</div>
-					<!-- <div v-if="mobileinfo" id="mobilemessage">
-						<p>{{ title }}</p>
-						<p id="mobilemsg">{{ msg }}</p>
-						<div id="mobilebtn">
-							<button @click="escapeMobile">
-								OK
-							</button>
-						</div>
-					</div> -->
-					<div id="validation">
+					<div v-if="!validate && dispo" id="validation">
 						<Button
 							id="bout"
 							label="Valider mes réponses"
 							@click="save"
 							class="p-button-warning p-button-lg"
 						/>
+					</div>
+					<div v-if="validate">
+						<ProgressSpinner />
 					</div>
 					<div>
 						<Dialog
@@ -186,22 +192,6 @@
 					<div id="copyright">
 						<p><i>&copy; Site réalisé par Delphine Moutault</i></p>
 					</div>
-
-					<!-- <div id="boxmessage">
-						<va-modal class="mr-2 mb-2" v-if="info" v-model="save" hide-default-actions>
-							<template #header>
-								<h3>{{ title }}</h3>
-							</template>
-							<slot>
-								<div id="message">{{ msg }}</div>
-							</slot>
-							<template #footer>
-								<button @click="escape">
-									OK
-								</button>
-							</template>
-						</va-modal>
-					</div> -->
 				</div>
 
 				<div id="images" class="col-0 md:col-6">
@@ -214,14 +204,14 @@
 						</div>
 					</div>
 					<div class="grid ">
-						<div class="col-4 col-offset-2">
+						<div class="col-4 col-offset-0">
 							<img
 								id="scrabble"
 								alt="pions de scrabble"
 								src="../assets/scrabble.png"
 							/>
 						</div>
-						<div class="col-3 col-offset-1">
+						<div class="col-3 col-offset-3">
 							<img
 								class=""
 								id="flush"
@@ -231,7 +221,7 @@
 						</div>
 					</div>
 					<div class="grid">
-						<div class="col-5 col-offset-4">
+						<div class="col-5 col-offset-2">
 							<img
 								id="piles"
 								alt="piles boites de jeux"
@@ -260,18 +250,23 @@ export default {
 			participants: "",
 			jeux: "",
 			nouveau: "",
+			pseudoStyle: "",
+			interetStyle: "",
+			frequenceStyle: "",
+			jourStyle: "",
+			heureStyle: "",
+			participantsStyle: "",
+			jeuxStyle: "",
+			nouveauStyle: "",
 			suggestions: "",
 			commentaires: "",
 			jourChoice: "",
 			jeuxChoice: "",
-			showModal: false,
-			message: "",
-			info: false,
-			fautes: "",
 			title: "",
 			valid: "",
-			mobileinfo: false,
 			displayResponsive: false,
+			validate: false,
+			dispo: true,
 			optionsInteret: [
 				{ name: "Oui", code: "OUI" },
 				{ name: "Non", code: "NON" },
@@ -311,10 +306,38 @@ export default {
 			],
 		};
 	},
-	components: {},
 	methods: {
+		//* Action in cells, take off red border
+
+		pseudoClic: function() {
+			this.pseudoStyle = "";
+		},
+		interetClic: function() {
+			this.interetStyle = "";
+		},
+		frequenceClic: function() {
+			this.frequenceStyle = "";
+		},
+		jourClic: function() {
+			this.jourStyle = "";
+		},
+		heureClic: function() {
+			this.heureStyle = "";
+		},
+		participantsClic: function() {
+			this.participantsStyle = "";
+		},
+		jeuxClic: function() {
+			this.jeuxStyle = "";
+		},
+		nouveauClic: function() {
+			this.nouveauStyle = "";
+		},
+
 		//* Save a line onf sondage in database
 		save: function() {
+			this.validate = true;
+			this.dispo = false;
 			this.pseudoStyle = "";
 			this.interetStyle = "";
 			this.frequenceStyle = "";
@@ -350,14 +373,7 @@ export default {
 					commentaires: this.commentaires,
 				})
 				.then(() => {
-					// if (window.matchMedia("(min-width: 768px)").matches) {
-					// 	this.info = true;
-					// 	this.mobileinfo = false;
-					// } else {
-					// 	this.info = false;
-					// 	this.mobileinfo = true;
-					// 	setTimeout(window.location.reload(), 15000);
-					// }
+					this.validate = false;
 					this.displayResponsive = true;
 					this.title = "Merci de votre participation";
 					this.msg =
@@ -367,15 +383,12 @@ export default {
 					this.valid = true;
 				})
 				.catch((err) => {
-					// if (window.matchMedia("(min-width: 768px)").matches) {
-					// 	this.info = true;
-					// 	this.mobileinfo = false;
-					// } else {
-					// 	this.info = false;
-					// 	this.mobileinfo = true;
+					this.validate = false;
+					this.dispo = true;
+					// if (!this.pseudo) {
+					// 	let element = document.getElementById("pseudo");
+					// 	element.style.backgroundColor = "#DC4E41";
 					// }
-
-					// this.fautes = "";
 					if (this.pseudo === "") {
 						this.pseudoStyle = "alert";
 					}
@@ -400,20 +413,6 @@ export default {
 					if (this.nouveau === "") {
 						this.nouveauStyle = "alert";
 					}
-					// if (this.jourChoice === "") {
-					// 	if (this.pseudo === "") {
-					// 		this.fautes = this.fautes + ", votre choix de jour";
-					// 	} else {
-					// 		this.fautes = this.fautes + "votre choix de jour";
-					// 	}
-					// }
-					// if (this.jeuxChoice === "") {
-					// 	if (this.pseudo === "" || this.jourChoice === "") {
-					// 		this.fautes = this.fautes + " et vos choix de jeux";
-					// 	} else {
-					// 		this.fautes = this.fautes + "vos choix de jeux";
-					// 	}
-					// }
 					this.displayResponsive = true;
 
 					this.title = "Attention !";
@@ -433,18 +432,11 @@ export default {
 					console.log(this.commentaires);
 				});
 		},
-		// // No display anymore popup message
-		// escape: function() {
-		// 	this.info = false;
-		// 	if (this.valid) {
-		// 		window.location.reload();
-		// 	}
-		// },
 		closeResponsive: function() {
 			this.displayResponsive = false;
+			this.dispo = true;
 			if (this.valid) {
 				window.location.reload();
-				// setTimeout(window.location.reload(), 3000);
 			}
 		},
 	},
@@ -499,7 +491,8 @@ h4 {
 	font-weight: 500;
 }
 #alert {
-	border: solid red;
+	border: solid #dc4e41;
+	background-color: #dc4e41;
 }
 #validation {
 	text-align: left;
@@ -537,28 +530,28 @@ h4 {
 }
 #tarot {
 	width: 100%;
-	/* margin-top: 5rem;
-	margin-left: 3rem; */
+	margin-top: 8rem;
+	/* margin-left: 3rem; */
 }
 #jeton {
 	width: 100%;
-	/* margin-left: 0rem; */
-	/* margin-top: 7rem; */
+	/* margin-left: 0rem;  */
+	margin-top: 13rem;
 }
 #scrabble {
 	width: 100%;
-	/* margin-left: 10rem;
-	margin-top: 0rem; */
+	/* margin-left: 10rem; */
+	margin-top: 3rem;
 }
 #piles {
 	width: 100%;
 	/* margin-left: 3rem; */
-	margin-top: 3rem;
+	margin-top: 12rem;
 }
 #flush {
 	width: 90%;
 	/* margin-left: 9rem; */
-	margin-top: 7rem;
+	margin-top: 16rem;
 }
 
 #message,
